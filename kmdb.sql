@@ -143,6 +143,43 @@ CREATE TABLE Roles (
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
 
+INSERT INTO Movies (title, year_released, mpaa_rating, studio_id) VALUES 
+('Batman Begins', 2005, 'PG-13', 1), 
+('The Dark Knight', 2008, 'PG-13', 1), 
+('The Dark Knight Rises', 2012, 'PG-13', 1);
+
+INSERT INTO Actors (actor_id, name) VALUES 
+(1, 'Christian Bale'),
+(2, 'Michael Caine'),
+(3, 'Liam Neeson'),
+(4, 'Katie Holmes'),
+(5, 'Gary Oldman'),
+(6, 'Heath Ledger'),
+(7, 'Aaron Eckhart'),
+(8, 'Maggie Gyllenhaal'),
+(9, 'Tom Hardy'),
+(10, 'Joseph Gordon-Levitt'),
+(11, 'Anne Hathaway');
+
+INSERT INTO Studios (name) VALUES ('Warner Bros.');
+
+INSERT INTO Roles (character_name, movie_id, actor_id) VALUES 
+('Bruce Wayne', 1, 1),
+('Alfred', 1, 2),
+("Ra's Al Ghul", 1, 3),
+('Rachel Dawes', 1, 4),
+('Commissioner Gordon', 1, 5),
+('Bruce Wayne', 2, 1),
+('Alfred', 2, 2),
+('Joker', 2, 6),
+('Harvey Dent', 2, 7),
+('Rachel Dawes', 2, 8),
+('Bruce Wayne', 3, 1),
+('Commissioner Gordon', 3, 5),
+('Bane', 3, 9),
+('John Blake', 3, 10),
+('Selina Kyle', 3, 11);
+
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
@@ -151,12 +188,20 @@ CREATE TABLE Roles (
 -- The SQL statement for the movies output
 -- TODO!
 
+SELECT Movies.title, Movies.year_released, Movies.mpaa_rating, Studios.name
+FROM Movies
+INNER JOIN Studios ON Movies.studio_id = Studios.studio_id;
+
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
 .print "========"
 .print ""
 
-
 -- The SQL statement for the cast output
 -- TODO!
+
+SELECT Movies.title, Actors.name, Roles.character_name
+FROM Roles
+INNER JOIN Movies ON Roles.movie_id = Movies.movie_id
+INNER JOIN Actors ON Roles.actor_id = Actors.actor_id;
